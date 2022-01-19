@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Угадайка</title>
+	<link rel="stylesheet" href="mystyle.css">
+
+	<script type="text/javascript">
+
+		function Play(){
+
+			alert("Приветствую тебя! Твоя задача отгадать число, которое я загадал. Диапазон от 0 до 1000. Удачи!");
+			var answer = parseInt(Math.random() * 1000);
+	
+			for(var i = 10; i > 0; i--){
+	
+			var number = prompt("Введите вариант. У вас есть " + i + " попыток. Для выхода нажмите q" );
+
+				if(number == "q")
+				break
+				number = parseInt(number);
+				
+				if(number == answer){
+				alert("Молодец! Ты угадал!");
+				break;
+				} else if(number < answer){
+				alert("Ваше число слишком маленькое!");
+				} else if(number > answer){
+			alert("Ваше число слишком большое!");
+			}
+		}
+		alert("Я загадал " + answer);
+		}
+	</script>
+
+</head>
+<body>
+
+	<div id="header">
+	<a href="index.html">Главная</a><span>/</span>
+	<a href="Sudoku.html">Судоку</a><span>/</span>
+	<a href="quest-2.html">Угадайка</a><span>/</span>
+	<a href="Black Jack.html">Блэк Джек</a>
+	</div>
+
+	<div id="content">
+		<h1>Угадайка</h1>
+
+			<div id="box">
+				<h2>Тебе нужно угадать число, загаданное компьютером</h2>
+
+				<b href="#" onclick="Play()">Начать игру</b>
+
+			</div>
+	</div>
+	<div id="footer">
+		Copyright © 2016
+	</div>
+
+</body>
+</html>

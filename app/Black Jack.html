@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Black Jack</title>
+	<link rel="stylesheet" href="mystyle.css">
+
+	<script type="text/javascript">
+
+		function BlackJack(){
+
+			function getRandomInt(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+
+			function getCard() {
+				var cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+				return cards[getRandomInt(0, cards.length - 1)];
+			}
+
+			function getSum(hand) {
+				var sum = 0;
+
+
+				for (var i=0; i<hand.length; i++) {
+					var card = hand[i];
+					if (card !='A') {
+						if (card == 'J' || card == 'Q' || card == 'K') {
+							sum = sum + 10
+						} else {
+							sum = sum + parseInt(card);
+						}
+					}
+				}
+
+
+				for (var i=0; i<hand.length; i++) {
+					var card = hand[i];
+					if (card == 'A') {
+						if (sum > 10) {
+							sum = sum + 1;
+						}
+					}
+				}
+				return sum;
+			}
+
+
+			function getStatus () {
+				return 'Дилер: ' + dealer.join(' ') + ' Игрок: ' + player.join(' ') + '.';
+			}
+
+			var dealer = [getCard()];
+			var player = [getCard(), getCard()];
+
+			if (getSum(player) == 21) {
+				alert('Дьявольское везение! Black Jack на раздаче!');
+			} else {
+				var answer = '';
+			    do {
+				    answer = prompt(getStatus() + 'Хотите ещё карту? 1 - да, иначе - нет');
+
+				    // сдаём карту игроку либо прекращаем игру
+				    if (answer == '1') {
+					    player.push(getCard());
+
+					
+					    sum = getSum(player);
+					    if (sum > 21) {
+						alert('Перебор! ' + getStatus());
+						break;
+					    } else if (sum == 21) {
+						alert('Black Jack! Поздравляю! ' + getStatus());
+						break;
+					    }
+				    } else {
+				    	// dealer
+
+
+					    while (getSum(dealer) < 17) {
+						dealer.push(getCard());
+					    }
+
+
+					    var sumDealer = getSum(dealer);
+					    var sumPlayer = getSum(player);
+
+					    if (sumDealer == 21) {
+						    alert('У дилера Black Jack! ' + getStatus());
+					    } else if (sumDealer > 21) {
+						    alert('У дилера перебор! Ты победил! Поздравляю! ' + getStatus());
+				    	} else if (sumPlayer == sumDealer) {
+					    	alert('Ничья! ' + getStatus());
+				    	} else if (sumPlayer > sumDealer) {
+					    	alert('Выигрыш! Поздравляю! ' + getStatus());
+				    	} else {
+				    		alert('Проигрыш! ' + getStatus());
+				    	}
+			    	}	
+			    } while(answer == '1');
+			}
+
+		}
+	</script>
+
+</head>
+<body>
+
+	<div id="header">
+	<a href="index.html">Главная</a><span>/</span>
+	<a href="Sudoku.html">Судоку</a><span>/</span>
+	<a href="quest-2.html">Угадайка</a><span>/</span>
+	<a href="Black Jack.html">Блэк Джек</a>
+	</div>
+
+	<div id="content">
+		<h1>Black Jack</h1>
+
+			<div id="box">
+				<h2>Приветствую! Это игра Black Jack. По-русски 21-о. Твоя задача играть с диллером. Тебе будут выданы 2 карты. У каждой карты своё число очков. Валет (J), Дама (Q), Король (K) = 10. Туз (A) Может быть равен как 11, так и 1, всё зависит от суммы карт у тебя в руке. Набери 21 очко и победи! Удачи!</h2>
+
+				<b href="#" onclick="BlackJack()">Начать игру</b>
+
+			</div>
+	</div>
+	<div id="footer">
+		Copyright © 2016
+	</div>
+
+</body>
+</html>
